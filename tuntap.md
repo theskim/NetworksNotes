@@ -18,14 +18,14 @@ A TAP device stands for "network TAP" and operates at Layer 2 (the Data Link lay
 - Common uses of TAP devices include network bridging, setting up virtual networks for virtual machines, and various network simulation and testing scenarios.
 - In a virtualized server environment, TAP devices might be used to create a network bridge that allows virtual machines to have network access.
 
-**Key Features:**
+## Key Features:
 
 - **User-Space Interaction:** TUN/TAP devices present a simple character device interface to the user-space. They allow user-space applications to receive and inject networking packets into the kernel network stack.
 - **Packet Handling:** TUN devices work with IP packets (Layer 3), while TAP devices handle Ethernet frames (Layer 2).
 - **Versatility:** Due to their design and functionality, TUN/TAP devices offer considerable flexibility for implementing a variety of network functionalities and applications.
 - **Virtualization Support:** TUN/TAP devices play a significant role in virtualized environments, allowing for the creation of virtual network interfaces that can be used by guest systems.
 
-**Use Cases:**
+## Use Cases:
 
 - **VPN Implementations:** TUN/TAP devices are central to VPN applications. They allow VPNs to establish secure and encrypted communication tunnels between network endpoints over the public internet.
 - **Virtual Machine Networking:** TAP devices are commonly used in the virtualization field to facilitate networking between virtual machines, enabling each VM to have its own network interface.
