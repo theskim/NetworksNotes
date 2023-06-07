@@ -1,19 +1,21 @@
 # WebSocket
 
-WebSocket is a protocol that provides full-duplex communication between a client and a server over a single, long-lived connection. It is a part of the HTML5 specification designed to enable real-time communication in web applications, which traditionally relied on HTTP, a stateless, one-directional communication protocol. WebSocket was developed to overcome the limitations of HTTP for real-time communication.
+WebSocket is a communication protocol that provides full-duplex, real-time communication between a client (typically a web browser) and a server. It is part of the HTML5 specification and is designed to overcome the limitations of HTTP, which is stateless and essentially half-duplex. Unlike HTTP, WebSocket supports full-duplex communication, meaning data can be sent and received simultaneously.
 
-Unlike HTTP, WebSocket provides full-duplex communication and is more efficient as, after the initial handshake, data can be sent back and forth without any additional headers, reducing the amount of network traffic.
-
-- **Full-duplex**: Both the client and the server can send data simultaneously.
-- **Persistent connection**: Unlike HTTP, the WebSocket connection stays open, allowing real-time data transfer.
-- **Lower overhead**: WebSocket messages don't include extra metadata in each message after the connection is established, unlike HTTP.
+- **Full-duplex**: Both the client and the server can send and receive data at the same time. This allows real-time interaction between the client and the server.
+- **Persistent connection**: Once established, the WebSocket connection remains open, allowing continuous data transfer. This is unlike HTTP where each request-response pair requires a new connection.
+- **Lower overhead**: WebSocket messages don't require additional metadata (headers) after the connection is established, leading to reduced data overhead compared to HTTP, where each request and response carries headers.
 
 ## WebSocket Setup Process
-1. The client requests a WebSocket connection using the WebSocket handshake protocol. This request is sent to the server in the form of a standard HTTP request with an "Upgrade: websocket" header.
-2. The server responds with an HTTP response with a "101 Switching Protocols" status code. This response confirms that the server supports the WebSocket protocol and has agreed to initiate the WebSocket connection.
-3. After the handshake, the connection is switched from HTTP to WebSocket, and the client and server can send and receive messages in real-time.
+The WebSocket connection is established through a handshake process:
+1. The client initiates a WebSocket connection using the WebSocket handshake protocol. This request is sent to the server as a standard HTTP request with a specific header ("Upgrade: websocket"), indicating the client's desire to establish a WebSocket connection.
+2. The server responds to the client's request with an HTTP response that includes a "101 Switching Protocols" status code. This response confirms the server's agreement to upgrade the connection from HTTP to WebSocket.
+3. Once the handshake process is completed, the connection is upgraded from HTTP to WebSocket. From this point forward, the client and server can engage in full-duplex, real-time communication.
 
-## AddNode
+## Command Processing
+WebSocket can be used for various types of interactions between the client and the server. Commands can be sent via WebSocket messages, and the server can parse these commands and perform corresponding actions.
+
+### AddNode
 When a client sends an `AddNode` command over the WebSocket connection, the server parses this command and takes action accordingly. This action might involve creating a new node in a data structure, or adding a new device or user to a network. The server then sends a response back to the client, such as a success message or the data of the newly created node.
 In a network management system, `AddNode` could be a command to add a new node or device to the network. When the server receives this command:
 
@@ -21,10 +23,12 @@ In a network management system, `AddNode` could be a command to add a new node o
 2. It adds the new device to the network topology data structure.
 3. It sends a response to the client with the status of the operation.
 
-## InstallFlow
-When the server receives an `InstallFlow` command, it might start a series of actions or tasks based on a defined workflow. This could involve starting a software installation process, initiating a data pipeline, or anything else depending on the specific application. The server then sends a response to the client, such as the status of the workflow or any output produced by it. `InstallFlow` could be a command to define a new network traffic flow for Quality of Service (QoS) purposes. When the server receives this command:
+### InstallFlow
+Similarly, an InstallFlow command sent via a WebSocket connection can instruct the server to define a new network traffic flow for Quality of Service (QoS) purposes:
 
-1. It parses the command to extract necessary information, such as source and destination IP addresses, the type of traffic, and the priority.
-2. It creates a new network flow based on the provided parameters.
-3. It applies the new flow to the network devices using appropriate network protocols (like OpenFlow).
-4. It sends a response back to the client with the status of the operation.
+1. The server parses the `InstallFlow` command to extract necessary parameters, such as source and destination IP addresses, traffic type, and priority.
+2. It then creates a new network flow based on these parameters.
+3. The new flow is applied to the network devices using appropriate network protocols (like OpenFlow).
+4. The server sends a response back to the client with the status of the operation.
+
+In both cases, the WebSocket protocol allows for real-time, bidirectional communication, making it ideal for interactive applications and real-time data updates. It's commonly used in web applications for chat, live updates, and for real-time services in various domains including gaming, financial services, and collaborative tools.
